@@ -5,7 +5,7 @@ import re                     # regex for getting words
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.linalg import norm
-from numpy import sin, cos, arccos
+from numpy import sin, cos, arccos, degrees
 
 # Calculate the similarity between the texts of three writers and an
 # unknown text in order to determine the most likely writer of that text.
@@ -36,7 +36,7 @@ def plotSimilarity(madisonSim, jjSim, hamSim):
     # plot each individual vector, for loop necessary since label can only take one argument
     for origin, x, y, color, label in zip(origin, vecXs, vecYs, vecColors, vecNames):
         if vecNames[0] not in label:
-            label = label + " with %.2f%% similarity and %.2f$^\circ$ angle difference" % (x*100, arccos(x)*100)
+            label = label + " with %.2f%% similarity and %.2f$^\circ$ angle difference" % (x*100, degrees(arccos(x)))
         plt.quiver(origin, origin, x, y, color=color,
                     label=label, angles='xy', scale_units='xy', scale=1)
     plt.title('Cosine Similarity to ' + vecNames[0])
