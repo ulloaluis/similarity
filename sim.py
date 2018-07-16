@@ -3,7 +3,9 @@
 import os                     # for file pathing
 import re                     # regex for getting words
 import numpy as np
+import matplotlib.pyplot as plt
 from numpy.linalg import norm
+from numpy import sin, cos, arccos
 
 # Calculate the similarity between the texts of three writers and an
 # unknown text in order to determine the most likely writer of that text.
@@ -13,11 +15,35 @@ def main():
     f_mad = fileToString('madison.txt')
     f_jj = fileToString('jj.txt')
     f_ham = fileToString('hamilton.txt')
-    f_unk = fileToString('unknown.txt') # unknown file was written by hamilton
+    f_unk = fileToString('unknown.txt') # unknown.txt file was written by hamilton
 
-    print("Similarity between madison and unknown: %.3f" % getSimilarity(f_mad, f_unk, featureVec))
-    print("Similarity between jj and unknown: %.3f" % getSimilarity(f_jj, f_unk, featureVec))
-    print("Similarity between hamilton and unknown: %.3f" % getSimilarity(f_ham, f_unk, featureVec))
+    madisonSim = getSimilarity(f_mad, f_unk, featureVec)
+    jjSim = getSimilarity(f_jj, f_unk, featureVec)
+    hamSim = getSimilarity(f_ham, f_unk, featureVec)
+
+    plotSimilarity(madisonSim, jjSim, hamSim)
+
+# Uses numpy and matplotlib to plot four vectors based on their cosine angles (similarity).
+# The unknown vector is defined as the positive x-axis [0, 1] and the other vectors are
+# plotted with respect to that vector. Vector lengths are the same.
+def plotSimilarity(madisonSim, jjSim, hamSim):
+    origin = [0, 0, 0, 0]
+    vecXs = [1, madisonSim, jjSim, hamSim]     # x = rcos(theta) = 1*similarity
+    vecYs = [0, sin(arccos(madisonSim)), sin(arccos(jjSim)), sin(arccos(hamSim))] # y=rsin(theta)=1*sin(cos^-1(similarity))
+    vecColors = ['r', 'y', 'g', 'b']
+    vecNames = ['Unknown Author', 'Madison', 'John Jay', 'Hamilton']
+
+    # plot each individual vector, for loop necessary since label can only take one argument
+    for origin, x, y, color, label in zip(origin, vecXs, vecYs, vecColors, vecNames):
+        if vecNames[0] not in label:
+            label = label + " with %.2f%% similarity and %.2f$^\circ$ angle difference" % (x*100, arccos(x)*100)
+        plt.quiver(origin, origin, x, y, color=color,
+                    label=label, angles='xy', scale_units='xy', scale=1)
+    plt.title('Cosine Similarity to ' + vecNames[0])
+    plt.legend(loc='upper left')
+    plt.xlim(0, 1.5) # only [0, 1.0] is used, but need padding for labels
+    plt.ylim(0, 1.5)
+    plt.show()
 
 # Count occurrences of a feature in text string by using the regex
 # findall function to isolate each word, which we compare to the feature
