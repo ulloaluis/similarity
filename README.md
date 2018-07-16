@@ -31,6 +31,6 @@ The following image determines the similarity between each of the federalist aut
 
 ## Potential additions:
 1) Other natural language processing techniques to refine program functionality
-2) Experimenting with angular distance and similarity to see whether it yields better results than cosine similarity
+2) Experimenting with angular distance/similarity to see whether it yields better results than cosine similarity
 3) Generalizing the file to an executable script that accepts a variable amount of 2+ filenames as arguments, with the first file being the file that the other files are compared to
 4) Other cosine similarity applications
