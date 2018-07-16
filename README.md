@@ -25,7 +25,7 @@ The following image determines the similarity between each of the federalist aut
 
 ![alt text](https://raw.githubusercontent.com/ulloaluis/similarity/master/outputs/moby-dick.png)
 
-...between each of the federalist author's writing and the shakespearean play Romeo and Juliet:
+...between each of the federalist author's writing and the Shakespearean play Romeo and Juliet:
 
 ![alt text](https://raw.githubusercontent.com/ulloaluis/similarity/master/outputs/romeo-juliet.png)
 
