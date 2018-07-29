@@ -9,8 +9,8 @@ from numpy import sin, cos, arccos, degrees
 
 def main():
     """
-        Calculate the similarity between the texts of three writers and an
-        unknown text in order to determine the most likely writer of that text.
+    Calculate the similarity between the texts of three writers and an
+    unknown text in order to determine the most likely writer of that text.
     """
     feature_vec = create_feature_vec()
 
@@ -27,10 +27,11 @@ def main():
 
 def plot_similarity(mad_sim, jj_sim, ham_sim):
     """
-        inputs: similarity values for madison, john jay, and hamilton
-        Uses numpy and matplotlib to plot four vectors based on their cosine angles (similarity).
-        The unknown vector is defined as the positive x-axis [0, 1] and the other vectors are
-        plotted with respect to that vector. Vector lengths are the same.
+    inputs: similarity values for madison, john jay, and hamilton
+    
+    Uses numpy and matplotlib to plot four vectors based on their cosine angles (similarity).
+    The unknown vector is defined as the positive x-axis [0, 1] and the other vectors are
+    plotted with respect to that vector. Vector lengths are the same.
     """
     origin = [0, 0, 0, 0]
     vecs_x = [1, mad_sim, jj_sim, ham_sim]     # x = rcos(theta) = 1*similarity
@@ -52,28 +53,32 @@ def plot_similarity(mad_sim, jj_sim, ham_sim):
 
 def count_occurrences(text, feature):
     """
-        inputs: feature that is searched for inside text
-        Count occurrences of a feature in text string by using the regex
-        findall function to isolate each word, which we compare to the feature
+    inputs: feature that is searched for inside text
+    
+    Count occurrences of a feature in text string by using the regex
+    findall function to isolate each word, which we compare to the feature
     """
     found_occurrences = re.findall(r'\w+', text)
     return len([word for word in found_occurrences if word == feature])
 
 def create_doc_vec(text, feature_vec):
     """ 
-        inputs: feature_vec, which is the features to be searched for, 
-                and text, which is the text being searched
-        returns a vector (list) with the number of occurrences for each
-        feature in the corresponding index
+    inputs: feature_vec, which is the features to be searched for, 
+            and text, which is the text being searched
+            
+    returns a vector (list) with the number of occurrences for each
+    feature in the corresponding index
     """
     return [count_occurrences(text, feature) for feature in feature_vec]
 
 # Cosine Similarity
 def get_similarity(text_1, text_2, feature_vec):
     """ 
-        returns a similarity value between two texts by creating
-        vectors that document the occurrence of features in feature_vec
-        and then taking the dot products (ternary catches divide by zero)
+    inputs: two texts that are compared and the features used in comparison
+    
+    returns a similarity value between two texts by creating
+    vectors that document the occurrence of features in feature_vec
+    and then taking the dot products (ternary catches divide by zero)
     """
     doc_vec_1 = create_doc_vec(text_1, feature_vec)
     doc_vec_2 = create_doc_vec(text_2, feature_vec)
@@ -106,10 +111,11 @@ def create_feature_vec():
 
 def file_to_string(filename):
     """
-        inputs: file to be converted to string
-        open: opens absolute path to filename, .join connects the following strings into a valid
-        dir path, __file__ is absolute path to sim.py, .dirname(__file__) removes /sim.py part
-        read caveat: have to remove \n's by replacing in order to properly read file to string
+    inputs: file to be converted to string
+    
+    open: opens absolute path to filename, .join connects the following strings into a valid
+    dir path, __file__ is absolute path to sim.py, .dirname(__file__) removes /sim.py part
+    read caveat: have to remove \n's by replacing in order to properly read file to string
     """
     text = ""
     with open(os.path.join(os.path.dirname(__file__), 'texts', filename), 'r') as file:
@@ -120,7 +126,7 @@ def file_to_string(filename):
 # Allows us to define main above the functions it requires, no function prototypes
 if __name__ == "__main__":
     """
-        Keeps program from running when imported as a module in another program
-        Allows us to define main above the functions it requires, no function prototypes
+    Keeps program from running when imported as a module in another program
+    Allows us to define main above the functions it requires, no function prototypes
     """
     main()
