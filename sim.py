@@ -28,7 +28,6 @@ def main():
 def plot_similarity(mad_sim, jj_sim, ham_sim):
     """
         inputs: similarity values for madison, john jay, and hamilton
-        
         Uses numpy and matplotlib to plot four vectors based on their cosine angles (similarity).
         The unknown vector is defined as the positive x-axis [0, 1] and the other vectors are
         plotted with respect to that vector. Vector lengths are the same.
